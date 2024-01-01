@@ -1,0 +1,65 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+<div style="height: 200px;" class="d-block d-sm-none">
+  <img style='height:99%; width:100%' src="{% static "image/libr.jpg" %}" alt="Library Image">
+</div>
+<div class="container-fluid mx-auto d-flex flex-column flex-md-row align-items-center">
+  <div class="flex flex-column w-100 p-4 w-lg-50 justify-content-center items-start pt-12 pb-24 px-6 bg-dark text-light rounded bg-opacity-75 mx-3 m-4">
+    <h1 class="my-4 text-center">Welcome to <span class='text-primary'>MysticPage </span> <span class='text-warning'>Library</span></h1>
+    <p class="m-4">
+      Discover a world of endless possibilities at WhizRead Library – your gateway to knowledge and imagination. We believe that knowledge knows no bounds, and that's why our library is open to everyone. Dive into the enchanting realm of books, where each page is a new adventure waiting to unfold. Books are not just stories; they are companions on your journey of learning and self-discovery. Immerse yourself in the joy of reading, and you'll unravel the secrets of a meaningful life. WhizRead Library invites you to explore, dream, and learn, because within the pages of a book, you'll find the true essence of existence.
+    </p>
+    <div class="d-flex justify-content-center w-100">
+      <a href="{% url "registration" %}" class="btn btn-primary rounded hover:bg-light hover:text-dark hover:border-dark shadow hover:shadow-lg py-2 px-4 border border-hover:border-transparent">Register</a>
+    </div>
+  </div>
+  <div style="height: 400px;" class="">
+    <img style='height:90%; width:100%' class="img-fluid rounded-2xl w-100 rounded-pill" src="{% static "image/fairyBook.jpg" %}" alt="Book Image">
+  </div>
+</div>
+
+<div class="d-flex flex-wrap p-4">
+  <div class="col-2 bg-info p-3" >
+    <h5>All Categories</h5>
+    {% for cate in categories %}
+    <div class="categories">
+      <input
+        class="form-check-input"
+        type="none"
+        name="categories"
+        id="{{cate.id}}"
+      />
+      <label class="form-check-label" for="{{cate.id}}">
+        <a href="{% url "book_slug" cate.slug %}" class="text-decoration-none text-dark" >{{cate.name}}</a>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-10 p-3">
+    <h4>{{books | length}} results found</h4>
+    <div class="d-flex flex-wrap pt-5">
+      {% for book in books %}
+      <div class="col-sm-3">
+        <div class="card m-2">
+          <div class="card-body">
+            <img src="{{book.image.url}}" class="card-img-top" alt="{{book.book_name}} Image">
+            <h5 class="card-title"><a href="" class="text-decoration-none text-dark">{{book.book_name}}</a></h5>
+            <p class="card-text">{{book.book_description |truncatewords:10}}</p>
+            <hr />
+                <h3 class="fw-bold text-success">{{ book.category.name }}</h3>
+                <h6 class="my-2">
+                  Price: <span id="order-price">${{ book.price }}</span>
+                </h6>
+                <a href="{% url 'book_details' book.id %}" type="button" class="btn btn-outline-info fw-bold text-dark w-100">
+                  View Details
+                </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

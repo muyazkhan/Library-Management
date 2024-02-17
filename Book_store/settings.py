@@ -86,13 +86,18 @@ WSGI_APPLICATION = 'Book_store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Feel free to alter this value to suit your needs.
+#         default='postgres://django_library_user:fRMqivYOFKW6pWLhNzKm6fNKxaGkFeKV@dpg-cm95tea1hbls73b42fcg-a.oregon-postgres.render.com/django_library',
+#     )
+# }
 DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgres://django_library_user:fRMqivYOFKW6pWLhNzKm6fNKxaGkFeKV@dpg-cm95tea1hbls73b42fcg-a.oregon-postgres.render.com/django_library',
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
